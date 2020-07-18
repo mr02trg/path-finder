@@ -1,0 +1,92 @@
+.grid-container {
+  width: calc(100vw - 100px);
+  height: calc(100vh - 200px);
+}
+
+.drag-component {
+  display: flex;
+  align-items: center;
+}
+
+.menu-bar {
+  min-height: 60px;
+  display: flex;
+  align-items: center;
+}
+
+.grid {
+  table-layout: fixed;
+  td {
+    margin: 0;
+    padding: 0;
+    border: 1px solid #ddd;
+  }
+}
+
+.node {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+  &.wall {
+    background-color: black;
+  }
+  &.visited {
+    animation-name: visitedAnimation;
+    animation-duration: 1.5s;
+    animation-timing-function: ease-out;
+    animation-delay: 0;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    // animation-direction: alternate;
+    // animation-play-state: running;
+  }
+  &.shortest-path {
+    animation-name: shortestPathAnimation;
+    animation-duration: 1s;
+    animation-timing-function: ease-out;
+    animation-delay: 0;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+  }
+}
+
+@keyframes visitedAnimation {
+  0% {
+    transform: scale(0.3);
+    background-color: #ffb175;
+    border-radius: 100%;
+  }
+
+  50% {
+    background-color: #759eff;
+  }
+
+  75% {
+    transform: scale(1.2);
+    background-color: #ea75ff;
+  }
+
+  100% {
+    transform: scale(1);
+    background-color: #fff475;
+  }
+}
+
+@keyframes shortestPathAnimation {
+  0% {
+    transform: scale(.4);
+    transform: rotate(135deg);
+    background-color: #fff475;
+  }
+
+  75% {
+    transform: scale(.8);
+    background-color: #ffa200;
+  }
+
+  100% {
+    transform: scale(1);
+    background-color: #ff6200;
+  }
+}
