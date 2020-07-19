@@ -2,11 +2,10 @@ import React, { useState, useRef, useEffect } from 'react';
 import { clone } from 'lodash';
 import './Grid.scss';
 
-import { 
-  create2DArray,
-  bfs
-} from './utils/utils';
-import {EMPTY, SOURCE, DEST, WALL} from './constants/constants';
+import { create2DArray } from './utils/utils';
+import { bfs, aStar } from './utils/graphAlgo';
+import {EMPTY, SOURCE, DEST, WALL} from './constants/Graph';
+import { BFS, A_STAR } from './constants/Algo';
 import MyTarget from './components/MyTarget';
 
 const Grid = () => {
@@ -32,7 +31,7 @@ const Grid = () => {
   const [, setDimension] = useState(getDimension());
   const [isMouseDown, setIsMouseDown] = useState(false);
   const [dragType, setDragType] = useState('');
-
+  const [algo, setAlgo] = useState(BFS);
   const [srcPos, setSrcPos] = useState();
   const [destPos, setDestPos] = useState();
 
@@ -106,29 +105,40 @@ const Grid = () => {
     setDestPos(null);
     for(let i = 0; i < myGraph.length; i++) {
       for(let j = 0; j < myGraph[i].length; j++) {
-        document.getElementById(`node-${j}-${i}`).className = null;
+        document.getElementById(`node-${j}-${i}`).className = 'node';
       }
     }
   }
   
   const visualisePath = () => {
-    const {visited, shortestPath} = bfs(srcPos, destPos, myGraph, getDimension());
     setLoading(true);
-    // render visited path
-    for(let i = 0; i < visited.length; i++) {
-      setTimeout(() => {
-        const currVisited = visited[i];
-        const node = document.getElementById(`node-${currVisited.x}-${currVisited.y}`);
-        if (node) {
-          node.className = 'node visited';
-        }
-      }, i * 20);
+    let result = null;
+    switch(algo) {
+      case A_STAR:
+        result = aStar(srcPos, destPos, myGraph, getDimension());
+        break;
+      default: 
+        result = bfs(srcPos, destPos, myGraph, getDimension());
+    }
 
-      // render shortest path
-      if (i === visited.length - 1) {
+    if (result) {
+      const {visited, shortestPath} = result;
+      // render visited path
+      for(let i = 0; i < visited.length; i++) {
         setTimeout(() => {
-          renderShortestPath(shortestPath);
-        }, i * 20 + 1500);    // add 2s for animation duration
+          const currVisited = visited[i];
+          const node = document.getElementById(`node-${currVisited.x}-${currVisited.y}`);
+          if (node) {
+            node.className = 'node visited';
+          }
+        }, i * 20);
+
+        // render shortest path
+        if (i === visited.length - 1) {
+          setTimeout(() => {
+            renderShortestPath(shortestPath);
+          }, i * 20 + 1500);    // add 2s for animation duration
+        }
       }
     }
   }
@@ -150,7 +160,6 @@ const Grid = () => {
       }
     }
   }
-
 
   const showTarget = type => {
     return (
@@ -176,25 +185,33 @@ const Grid = () => {
       <div className="menu-bar">
         {!srcPos && showTarget(SOURCE)}
         {!destPos && showTarget(DEST)}
-        <div className="ml-auto">
-          <button 
-            className="btn btn-primary mr-3" 
-            onClick={visualisePath} 
-            disabled={!srcPos || !destPos || loading}>
-            {
-              loading ?
-              (
-                <>
-                  <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                  <span> Visualising...</span>
-                </>
-              ) : (
-                <span>Visualise</span>
-              )
-            }
-            
-          </button>
-          <button className="btn btn-light" onClick={() => resetVisualise()} disabled={!srcPos || !destPos || loading}>Reset</button>
+        <div className="d-flex ml-auto">
+          <select 
+            className="form-control mr-3" 
+            style={{minWidth: "100px"}}
+            value={algo}
+            onChange={e => setAlgo(e.target.value)}
+          >
+            <option value={BFS}>BFS</option>
+            <option value={A_STAR}>A*</option>
+          </select>
+          {loading ? (
+            <>
+            <div className="spinner-border" role="status">
+              <span>Whee...</span>
+            </div>
+            </>
+          ) : (
+            <>
+            <button 
+              className="btn btn-primary mr-3" 
+              onClick={visualisePath} 
+              disabled={!srcPos || !destPos}>
+              Visualise    
+            </button>
+            <button className="btn btn-light" onClick={() => resetVisualise()} disabled={!srcPos || !destPos}>Reset</button>
+            </>
+          )}
         </div>
       </div>
 

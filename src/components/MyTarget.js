@@ -1,7 +1,7 @@
 import React from 'react';
 import './MyTarget.scss';
 
-import { SOURCE } from '../constants/constants'
+import { SOURCE } from '../constants/Graph'
 
 const MyTarget = ({ targetType, ...props }) => {
   return (

@@ -2,7 +2,8 @@ import React from 'react';
 import Grid from './Grid';
 import './App.scss';
 
-function App() {
+const App = () => {
+
   return (
     <div className="app">
       <Grid />
