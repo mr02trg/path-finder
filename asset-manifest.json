@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/path-finder/static/css/main.84c887e7.chunk.css",
+    "main.js": "/path-finder/static/js/main.0f0f4ba1.chunk.js",
+    "main.js.map": "/path-finder/static/js/main.0f0f4ba1.chunk.js.map",
+    "runtime-main.js": "/path-finder/static/js/runtime-main.a1608f35.js",
+    "runtime-main.js.map": "/path-finder/static/js/runtime-main.a1608f35.js.map",
+    "static/css/2.1eff3a54.chunk.css": "/path-finder/static/css/2.1eff3a54.chunk.css",
+    "static/js/2.b16436f4.chunk.js": "/path-finder/static/js/2.b16436f4.chunk.js",
+    "static/js/2.b16436f4.chunk.js.map": "/path-finder/static/js/2.b16436f4.chunk.js.map",
+    "index.html": "/path-finder/index.html",
+    "precache-manifest.e1324368b1e34a0272bdbdcdcbbde584.js": "/path-finder/precache-manifest.e1324368b1e34a0272bdbdcdcbbde584.js",
+    "service-worker.js": "/path-finder/service-worker.js",
+    "static/css/2.1eff3a54.chunk.css.map": "/path-finder/static/css/2.1eff3a54.chunk.css.map",
+    "static/css/main.84c887e7.chunk.css.map": "/path-finder/static/css/main.84c887e7.chunk.css.map",
+    "static/js/2.b16436f4.chunk.js.LICENSE.txt": "/path-finder/static/js/2.b16436f4.chunk.js.LICENSE.txt",
+    "static/media/font-awesome.min.css": "/path-finder/static/media/fontawesome-webfont.fee66e71.woff"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.a1608f35.js",
+    "static/css/2.1eff3a54.chunk.css",
+    "static/js/2.b16436f4.chunk.js",
+    "static/css/main.84c887e7.chunk.css",
+    "static/js/main.0f0f4ba1.chunk.js"
+  ]
+}
